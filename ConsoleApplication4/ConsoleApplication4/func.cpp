@@ -1,0 +1,111 @@
+#include "pch.h"
+#include "func.h"
+#include <iostream>
+
+
+void showArray(int* array, int iSize) {
+	if (iSize <= 0) {
+		std::cout << "Array's size is supposed to be a positive integer number";
+		return;
+	}
+	if (array == nullptr) {
+		return;
+	}
+	for (int i = 0; i < iSize; i++) {
+		std::cout << *(array + i) << " ";
+	}
+	std::cout << std::endl;
+}
+
+void v_alloc_table_add_5(int iSize) {
+	if (iSize <= 0) {
+		std::cout << "Array's size is supposed to be a positive integer number";
+		return;
+	}
+
+	int* arr = new int[iSize];
+	for (int i = 0; i < iSize; i++) {
+		arr[i] = i + 5;
+	}
+
+	showArray(arr, iSize);
+
+	delete[] arr;
+}
+
+bool b_alloc_table_2_dim(int*** piTable, int iSizeX, int iSizeY) {
+	if (iSizeX <= 0 || iSizeY <= 0) {
+		std::cout << "Array's sizes are supposed to be a positive integer number";
+		return false;
+	}
+
+
+	*piTable = new (std::nothrow) int*[iSizeY];
+	if (*piTable == nullptr) {
+		return false;
+	}
+
+	for (int i = 0; i < iSizeY; i++) {
+		*(*piTable + i) = new (std::nothrow) int[iSizeX];
+		if ((*piTable + i) == nullptr) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool b_dealloc_table_2_dim(int*** piTable, int iSizeY) {
+	if (iSizeY <= 0) {
+		std::cout << "Array's size is supposed to be a positive integer number";
+		return false;
+	}
+
+	if (*piTable == nullptr) {
+		return false;
+	}
+
+	for (int i = 0; i < iSizeY; i++) {
+		if (*(*piTable + i) == nullptr) {
+			return false;
+		}
+		delete[] * (*piTable + i);
+		*(*piTable + i) = nullptr;
+	}
+	delete[] * piTable;
+	*piTable = nullptr;
+	return true;
+}
+
+int * v_alloc_return_add_5(int iSize) {
+	if (iSize <= 0) {
+		std::cout << "Array's size is supposed to be a positive integer number";
+		return nullptr;
+	}
+
+	int * array = new int[iSize];
+	for (int i = 0; i < iSize; i++) {
+		array[i] = i + 5;
+	}
+	return array;
+}
+
+bool v_alloc_change_pointer_add_5(int ** ptr, int iSize) {
+	if (iSize <= 0) {
+		std::cout << "Array's size is supposed to be a positive integer number";
+		return false;
+	}
+
+	*ptr = new int[iSize];
+	for (int i = 0; i < iSize; i++) {
+		*(*ptr+i) = i + 5;
+	}
+	return true;
+}
+
+void dealloc(int ** ptr) {
+	if (ptr == nullptr) {
+		return;
+	}
+	delete[] * ptr;
+	*ptr = NULL;
+}
