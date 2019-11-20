@@ -1,0 +1,3 @@
+﻿  CFileLastError.cpp
+c:\users\mateusz\source\repos\lab4\lab4\cfilelasterror.cpp(46): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  lab4.vcxproj -> C:\Users\Mateusz\source\repos\lab4\Debug\lab4.exe
